@@ -17,5 +17,5 @@
 
 ## ✨ 인상 깊었던 문제들
 
-- **[BOJ 6549: 히스토그램에서 가장 큰 직사각형](https://github.com/YOUR_GITHUB_ID/Algorithm-Solutions/tree/main/Data_Structure/Segment_Tree/BOJ_6549)**
+- **[BOJ 6549: 히스토그램에서 가장 큰 직사각형](https://github.com/ihyeon1120/Algorithm-Solutions/blob/main/Data_Structure/Segment_tree/biggest_in_hist.cpp)**
   - 분할 정복과 세그먼트 트리를 함께 사용하여 해결한 문제. `mid`가 아닌 `min_idx`로 분할하는 아이디어가 핵심이었습니다.
