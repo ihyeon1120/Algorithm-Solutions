@@ -16,6 +16,9 @@
 - **/Greedy**: 그리디 관련 문제
 
 ## ✨ 인상 깊었던 문제들
-
+### 그리디
+- **[BOJ 18186: 라면 사기 LARGE](https://github.com/ihyeon1120/Algorithm-Solutions/blob/main/Greedy/buy_ramen_large_18186.py)**
+  - 연속되는 3개의 수의 관계를 파악하며 제일 큰 값이 중앙의 위치해 있을 때와 아닐 때의 케이스를 분리하는 것이 핵심 아이디어.
+### 세그먼트 트리
 - **[BOJ 6549: 히스토그램에서 가장 큰 직사각형](https://github.com/ihyeon1120/Algorithm-Solutions/blob/main/Data_Structure/Segment_tree/biggest_in_hist.cpp)**
-  - 분할 정복과 세그먼트 트리를 함께 사용하여 해결한 문제. `mid`가 아닌 `min_idx`로 분할하는 아이디어가 핵심이었습니다.
+  - 분할 정복과 세그먼트 트리를 함께 사용하여 해결한 문제. `mid`가 아닌 `min_idx`로 분할하는 것이 핵심 아이디어.
