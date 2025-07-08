@@ -24,6 +24,15 @@ ll ccw(int x1, int y1, int x2, int y2, int x3, int y3) {
     return (ll)(x2 - x1)*(y3 - y1) - (y2 - y1)*(x3 - x1);
 }
 
+
+/*
+1.x, y좌표를 오름차순 정렬
+2. lower은 정방향으로 탐색 시작
+    2.1 lower에 2개 이상, 추가된 한 점이 시계방향으로 회전하거 일직선에 놓여있는 경우에 lower.pop()
+    2.2 lower에 값 추가
+3. upper은 역방향 탐색 이후 lower과 로직 동일
+4. lower과 upper가 겹치는 부분 제거
+*/ 
 void monotone_chain() {
     int n; cin >> n;
     vector<pii> pos(n);
