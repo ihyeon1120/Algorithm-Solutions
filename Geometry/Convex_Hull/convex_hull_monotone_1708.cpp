@@ -75,11 +75,12 @@ void monotone_chain() {
 
 }
 
+
+
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
     monotone_chain();
-
     return 0;
 }
