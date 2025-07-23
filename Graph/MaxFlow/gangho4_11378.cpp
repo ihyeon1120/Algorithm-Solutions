@@ -1,4 +1,4 @@
-// Problem: BOJ 6086
+// Problem: BOJ 11378
 
 #include <bits/stdc++.h>
 
@@ -13,24 +13,16 @@ typedef long long ll;
 typedef pair<int, int> pii;
 typedef pair<ll, ll> pll;
 
-const int MAX_NODES = 52;
+const int MAX_SIZE = 2005;
 const int INF = INT_MAX;
 
-struct Edge
-{
-    int to;
-    int capacity;
-    int rev;
+struct Edge {
+    int to, capacity, rev;
 };
 
-vector<Edge> adj[MAX_NODES];
-int parent[MAX_NODES];
-int parent_edge_idx[MAX_NODES];
-
-int ctoi(char a) {
-    if ('A' <= a && a <= 'Z') return a - 'A';
-    return a - 'a' + 26;
-}
+vector<Edge> adj[MAX_SIZE];
+int parent[MAX_SIZE];
+int parent_edge_idx[MAX_SIZE];
 
 void add_edge(int s, int e, int w) {
     adj[s].push_back({e, w, (int)adj[e].size()});
@@ -40,8 +32,8 @@ void add_edge(int s, int e, int w) {
 int edmonds_karp(int source, int sink) {
     int total_flow = 0;
     while(1) {
-        fill(parent, parent + MAX_NODES, -1);
-        fill(parent_edge_idx, parent_edge_idx + MAX_NODES, -1);
+        fill(parent, parent + MAX_SIZE, -1);
+        fill(parent_edge_idx, parent_edge_idx + MAX_SIZE, -1);
         queue<int> q;
         q.push(source);
         while (!q.empty()) {
@@ -80,17 +72,43 @@ int edmonds_karp(int source, int sink) {
 }
 
 void solve() {
-    int n; cin >> n;
-    while (n--)
+    /* 
+    source: 0
+    직원: 1 ~ n
+    일: n+1 ~ n+m+1
+    extra source: n+m+3 ~
+    sink: n+m+2
+    */
+    int n, m, k; cin >> n >> m >> k;
+
+    int source = 0;
+    int sink = n + m + 2;
+    // 기본 업무 노드
+    int extra1 = n + m + 3;
+    // 벌점 업무 노드
+    int extra2 = n + m + 4;
+
+    add_edge(source, extra1, n);
+    add_edge(source, extra2, k);
+
+    for (int i = 1; i < n + 1; ++i)
     {
-        char cs, ce;
-        int w;
-        cin >> cs >> ce >> w;
-        int s = ctoi(cs);
-        int e = ctoi(ce);
-        add_edge(s, e, w);
+        int j; cin >> j;
+        while (j--) { 
+            int job; cin >> job;
+            add_edge(i, job + n, 1);
+        }
+        
+        add_edge(extra1, i, 1);
+        add_edge(extra2, i, k);
     }
-    cout << edmonds_karp(ctoi('A'), ctoi('Z')) << endl;
+
+    for (int i = 0; i < m; ++i) {
+        int job = i + n + 1;
+        add_edge(job, sink, 1);
+    }
+
+    cout << edmonds_karp(source, sink) << endl;
     
 }
 
