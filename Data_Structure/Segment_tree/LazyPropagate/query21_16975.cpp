@@ -46,6 +46,7 @@ struct LazyPropagation {
     void propagate(int node, int start, int end) {
         if (lazy[node] != 0) {
             tree[node] += lazy[node];
+            // s == e면 단말노드여서 아래로 전파하지 않음!
             if (start != end) {
                 lazy[2*node] += lazy[node];
                 lazy[2*node + 1] += lazy[node];
