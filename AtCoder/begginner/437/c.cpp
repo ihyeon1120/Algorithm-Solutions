@@ -15,22 +15,25 @@ void solve() {
     int n; cin >> n;
     
     ll total_power = 0; 
-    vector<ll> cost;
+    ll total_weight = 0;
+    vector<vector<ll>> cost;
     
     for (int i = 0; i < n; ++i) {
         ll w, p; cin >> w >> p;
         total_power += p;     
-        cost.push_back(w + p);
+        cost.push_back({w + p, w, p});
     }
     
     sort(all(cost));
     
     int ans = 0;
-    for (long long c : cost) {
-        if (total_power >= c) {
-            total_power -= c; 
-            ans++;
-        } else {
+    for (vector<ll> a : cost) {
+        total_power -= a[2];
+        total_weight += a[1];
+        if (total_power >= total_weight) {
+            ans ++;
+        }
+        else {
             break;
         }
     }
