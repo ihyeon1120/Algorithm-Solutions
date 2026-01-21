@@ -1,3 +1,5 @@
+// Problem: BOJ 
+
 #include <bits/stdc++.h>
 
 #define endl "\n"
@@ -33,36 +35,38 @@ template<typename T, typename... Args> void DBG(const T& v, const Args&... args)
 #define debug(...)
 #endif
 
-const int MAXN = 32;
 
 void solve() {
-    int n, q; cin >> n >> q;
-    vector<int> a(n+1, 0);
-    vector<vector<ll>> table;
-    vector<vector<ll>> water;
-    for (int i = 1; i <= n; ++i) cin >> a[i];
-    table.resize(MAXN, vector<ll>(n+1, 0));
-    water.resize(MAXN, vector<ll>(n+1, 0));
-    for (int i = 1; i <= n; ++i) {table[0][i] = a[i]; water[0][i] = i;}
-    for (int i = 1; i < MAXN; ++i) {
-        for (int j = 1; j <= n; ++j) {
-            table[i][j] = table[i-1][table[i-1][j]];
-            int start = table[i-1][j];
-            water[i][j] = water[i-1][j] + water[i-1][start];
-        }
+    ll n, m; cin >> n >> m;
+    if (n > m || n*(n+1)/2 < m) {
+        cout << -1 << endl;
+        return;
+    }
+    // k(k-1)/2 + n <= m  ==> k^2 -k -2(m-n) <= 0인 k의 최대값
+    ll k = (1 + sqrt(1 + 8*(m-n))) / 2;
+    // 단말노드에 n-k개를 붙인다고 생각하고 시작
+    ll s = (k*(k+1))/2 + (n - k);
+    ll need = m - s;
+    debug(m, s);
+
+    cout << k << endl;; 
+    for (int i = k; i > 1; --i) {
+        cout << i << " " << i - 1 << endl;
     }
 
-    while(q--) {
-        ll t, b; cin >> t >> b;
-        ll ans = 0;
-        int node = b;
-        for (int i = 0; i < MAXN; ++i) {
-            if ((t >> i) & 1) {
-                ans += water[i][node];
-                node = table[i][node];
-            }
+    for (int i = k+1; i <= n; ++i) {
+        if (need >= k - 1) {
+            cout << k << " " << i << endl;
+            need -= (k-1);
         }
-        cout << ans << endl;
+        else if (need > 0) {
+            cout << (need + 1) << " " << i << endl;
+            need = 0;
+        }
+        else {
+            cout << 1 << " " << i << endl;
+        }
+        
     }
 
 }
@@ -70,8 +74,9 @@ void solve() {
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-
-    solve();
+    int tc; cin >> tc;
+    while(tc--) 
+        solve();
 
     return 0;
 }

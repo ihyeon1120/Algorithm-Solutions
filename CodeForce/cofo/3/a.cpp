@@ -1,3 +1,5 @@
+// Problem: BOJ 
+
 #include <bits/stdc++.h>
 
 #define endl "\n"
@@ -33,45 +35,35 @@ template<typename T, typename... Args> void DBG(const T& v, const Args&... args)
 #define debug(...)
 #endif
 
-const int MAXN = 32;
 
 void solve() {
-    int n, q; cin >> n >> q;
-    vector<int> a(n+1, 0);
-    vector<vector<ll>> table;
-    vector<vector<ll>> water;
-    for (int i = 1; i <= n; ++i) cin >> a[i];
-    table.resize(MAXN, vector<ll>(n+1, 0));
-    water.resize(MAXN, vector<ll>(n+1, 0));
-    for (int i = 1; i <= n; ++i) {table[0][i] = a[i]; water[0][i] = i;}
-    for (int i = 1; i < MAXN; ++i) {
-        for (int j = 1; j <= n; ++j) {
-            table[i][j] = table[i-1][table[i-1][j]];
-            int start = table[i-1][j];
-            water[i][j] = water[i-1][j] + water[i-1][start];
-        }
+    int l1, b1, l2, b2, l3, b3; cin >> l1 >> b1 >> l2 >> b2 >> l3 >> b3;
+    ll area = l1 * b1 + l2 * b2 + l3 * b3;
+    ll t = sqrt(area);
+    string ans;
+    if (t * t != area) {
+        cout << "No" << endl;
+        return;
     }
-
-    while(q--) {
-        ll t, b; cin >> t >> b;
-        ll ans = 0;
-        int node = b;
-        for (int i = 0; i < MAXN; ++i) {
-            if ((t >> i) & 1) {
-                ans += water[i][node];
-                node = table[i][node];
-            }
-        }
-        cout << ans << endl;
+    bool flag = false;
+    if (l1 < b1) {
+        swap(l1, b1); swap(l2, b2); swap(l3, b3);
     }
-
+    if (l1 == t && l2 == t && l3 == t && b1 + b2 + b3 == t ) {
+        flag = true;
+    }
+    if (l1 == t && l2 + l3 == t && b2 == b3 && b1 + b2 == t) {
+        flag = true;
+    }
+    cout << (flag ? "Yes" : "No") << endl;
 }
 
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-
-    solve();
+    int tc; cin >> tc;
+    while(tc--) 
+        solve();
 
     return 0;
 }
